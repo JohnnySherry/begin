@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Supplier" >
+    <id column="SupplierID" property="supplierid" jdbcType="INTEGER" />
+    <result column="Commodity" property="commodity" jdbcType="INTEGER" />
+    <result column="FullScore" property="fullscore" jdbcType="INTEGER" />
+    <result column="SupplierName" property="suppliername" jdbcType="VARCHAR" />
+    <result column="SupplierOwner" property="supplierowner" jdbcType="VARCHAR" />
+    <result column="SupplierUser" property="supplieruser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SupplierID, Commodity, FullScore, SupplierName, SupplierOwner, SupplierUser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.SupplierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where SupplierID = #{supplierid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where SupplierID = #{supplierid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.SupplierExample" >
+    delete from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Supplier" >
+    insert into supplier (SupplierID, Commodity, FullScore, 
+      SupplierName, SupplierOwner, SupplierUser
+      )
+    values (#{supplierid,jdbcType=INTEGER}, #{commodity,jdbcType=INTEGER}, #{fullscore,jdbcType=INTEGER}, 
+      #{suppliername,jdbcType=VARCHAR}, #{supplierowner,jdbcType=VARCHAR}, #{supplieruser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Supplier" >
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        SupplierID,
+      </if>
+      <if test="commodity != null" >
+        Commodity,
+      </if>
+      <if test="fullscore != null" >
+        FullScore,
+      </if>
+      <if test="suppliername != null" >
+        SupplierName,
+      </if>
+      <if test="supplierowner != null" >
+        SupplierOwner,
+      </if>
+      <if test="supplieruser != null" >
+        SupplierUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="commodity != null" >
+        #{commodity,jdbcType=INTEGER},
+      </if>
+      <if test="fullscore != null" >
+        #{fullscore,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierowner != null" >
+        #{supplierowner,jdbcType=VARCHAR},
+      </if>
+      <if test="supplieruser != null" >
+        #{supplieruser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.SupplierExample" resultType="java.lang.Integer" >
+    select count(*) from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update supplier
+    <set >
+      <if test="record.supplierid != null" >
+        SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodity != null" >
+        Commodity = #{record.commodity,jdbcType=INTEGER},
+      </if>
+      <if test="record.fullscore != null" >
+        FullScore = #{record.fullscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.suppliername != null" >
+        SupplierName = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierowner != null" >
+        SupplierOwner = #{record.supplierowner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplieruser != null" >
+        SupplierUser = #{record.supplieruser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update supplier
+    set SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      Commodity = #{record.commodity,jdbcType=INTEGER},
+      FullScore = #{record.fullscore,jdbcType=INTEGER},
+      SupplierName = #{record.suppliername,jdbcType=VARCHAR},
+      SupplierOwner = #{record.supplierowner,jdbcType=VARCHAR},
+      SupplierUser = #{record.supplieruser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Supplier" >
+    update supplier
+    <set >
+      <if test="commodity != null" >
+        Commodity = #{commodity,jdbcType=INTEGER},
+      </if>
+      <if test="fullscore != null" >
+        FullScore = #{fullscore,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        SupplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierowner != null" >
+        SupplierOwner = #{supplierowner,jdbcType=VARCHAR},
+      </if>
+      <if test="supplieruser != null" >
+        SupplierUser = #{supplieruser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SupplierID = #{supplierid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Supplier" >
+    update supplier
+    set Commodity = #{commodity,jdbcType=INTEGER},
+      FullScore = #{fullscore,jdbcType=INTEGER},
+      SupplierName = #{suppliername,jdbcType=VARCHAR},
+      SupplierOwner = #{supplierowner,jdbcType=VARCHAR},
+      SupplierUser = #{supplieruser,jdbcType=VARCHAR}
+    where SupplierID = #{supplierid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.EcatscoreMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Ecatscore" >
+    <id column="ScoreID" property="scoreid" jdbcType="INTEGER" />
+    <result column="SupplierID" property="supplierid" jdbcType="INTEGER" />
+    <result column="ScoreDate" property="scoredate" jdbcType="TIMESTAMP" />
+    <result column="QRC" property="qrc" jdbcType="DOUBLE" />
+    <result column="EC" property="ec" jdbcType="DOUBLE" />
+    <result column="Stopship" property="stopship" jdbcType="DOUBLE" />
+    <result column="PreStopship" property="prestopship" jdbcType="DOUBLE" />
+    <result column="GAQS" property="gaqs" jdbcType="DOUBLE" />
+    <result column="NPIQS" property="npiqs" jdbcType="DOUBLE" />
+    <result column="FFC" property="ffc" jdbcType="DOUBLE" />
+    <result column="FQP" property="fqp" jdbcType="DOUBLE" />
+    <result column="CI" property="ci" jdbcType="DOUBLE" />
+    <result column="other" property="other" jdbcType="DOUBLE" />
+    <result column="AuditScore" property="auditscore" jdbcType="DOUBLE" />
+    <result column="QualityIssueScore" property="qualityissuescore" jdbcType="DOUBLE" />
+    <result column="QualityPerformanceScore" property="qualityperformancescore" jdbcType="DOUBLE" />
+    <result column="CIPScore" property="cipscore" jdbcType="DOUBLE" />
+    <result column="OthersScore" property="othersscore" jdbcType="DOUBLE" />
+    <result column="TotalScore" property="totalscore" jdbcType="DOUBLE" />
+    <result column="SPEPercentage" property="spepercentage" jdbcType="DOUBLE" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="UpdateUser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="IsApprove" property="isapprove" jdbcType="INTEGER" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ScoreID, SupplierID, ScoreDate, QRC, EC, Stopship, PreStopship, GAQS, NPIQS, FFC, 
+    FQP, CI, other, AuditScore, QualityIssueScore, QualityPerformanceScore, CIPScore, 
+    OthersScore, TotalScore, SPEPercentage, CreateTime, SN, UserName, UpdateTime, UpdateUser, 
+    IsApprove, IsDelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.EcatscoreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ecatscore
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ecatscore
+    where ScoreID = #{scoreid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ecatscore
+    where ScoreID = #{scoreid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.EcatscoreExample" >
+    delete from ecatscore
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Ecatscore" >
+    insert into ecatscore (ScoreID, SupplierID, ScoreDate, 
+      QRC, EC, Stopship, PreStopship, 
+      GAQS, NPIQS, FFC, FQP, 
+      CI, other, AuditScore, 
+      QualityIssueScore, QualityPerformanceScore, 
+      CIPScore, OthersScore, TotalScore, 
+      SPEPercentage, CreateTime, SN, 
+      UserName, UpdateTime, UpdateUser, 
+      IsApprove, IsDelete)
+    values (#{scoreid,jdbcType=INTEGER}, #{supplierid,jdbcType=INTEGER}, #{scoredate,jdbcType=TIMESTAMP}, 
+      #{qrc,jdbcType=DOUBLE}, #{ec,jdbcType=DOUBLE}, #{stopship,jdbcType=DOUBLE}, #{prestopship,jdbcType=DOUBLE}, 
+      #{gaqs,jdbcType=DOUBLE}, #{npiqs,jdbcType=DOUBLE}, #{ffc,jdbcType=DOUBLE}, #{fqp,jdbcType=DOUBLE}, 
+      #{ci,jdbcType=DOUBLE}, #{other,jdbcType=DOUBLE}, #{auditscore,jdbcType=DOUBLE}, 
+      #{qualityissuescore,jdbcType=DOUBLE}, #{qualityperformancescore,jdbcType=DOUBLE}, 
+      #{cipscore,jdbcType=DOUBLE}, #{othersscore,jdbcType=DOUBLE}, #{totalscore,jdbcType=DOUBLE}, 
+      #{spepercentage,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP}, #{sn,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateuser,jdbcType=VARCHAR}, 
+      #{isapprove,jdbcType=INTEGER}, #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Ecatscore" >
+    insert into ecatscore
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreid != null" >
+        ScoreID,
+      </if>
+      <if test="supplierid != null" >
+        SupplierID,
+      </if>
+      <if test="scoredate != null" >
+        ScoreDate,
+      </if>
+      <if test="qrc != null" >
+        QRC,
+      </if>
+      <if test="ec != null" >
+        EC,
+      </if>
+      <if test="stopship != null" >
+        Stopship,
+      </if>
+      <if test="prestopship != null" >
+        PreStopship,
+      </if>
+      <if test="gaqs != null" >
+        GAQS,
+      </if>
+      <if test="npiqs != null" >
+        NPIQS,
+      </if>
+      <if test="ffc != null" >
+        FFC,
+      </if>
+      <if test="fqp != null" >
+        FQP,
+      </if>
+      <if test="ci != null" >
+        CI,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="auditscore != null" >
+        AuditScore,
+      </if>
+      <if test="qualityissuescore != null" >
+        QualityIssueScore,
+      </if>
+      <if test="qualityperformancescore != null" >
+        QualityPerformanceScore,
+      </if>
+      <if test="cipscore != null" >
+        CIPScore,
+      </if>
+      <if test="othersscore != null" >
+        OthersScore,
+      </if>
+      <if test="totalscore != null" >
+        TotalScore,
+      </if>
+      <if test="spepercentage != null" >
+        SPEPercentage,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser,
+      </if>
+      <if test="isapprove != null" >
+        IsApprove,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreid != null" >
+        #{scoreid,jdbcType=INTEGER},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="scoredate != null" >
+        #{scoredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrc != null" >
+        #{qrc,jdbcType=DOUBLE},
+      </if>
+      <if test="ec != null" >
+        #{ec,jdbcType=DOUBLE},
+      </if>
+      <if test="stopship != null" >
+        #{stopship,jdbcType=DOUBLE},
+      </if>
+      <if test="prestopship != null" >
+        #{prestopship,jdbcType=DOUBLE},
+      </if>
+      <if test="gaqs != null" >
+        #{gaqs,jdbcType=DOUBLE},
+      </if>
+      <if test="npiqs != null" >
+        #{npiqs,jdbcType=DOUBLE},
+      </if>
+      <if test="ffc != null" >
+        #{ffc,jdbcType=DOUBLE},
+      </if>
+      <if test="fqp != null" >
+        #{fqp,jdbcType=DOUBLE},
+      </if>
+      <if test="ci != null" >
+        #{ci,jdbcType=DOUBLE},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=DOUBLE},
+      </if>
+      <if test="auditscore != null" >
+        #{auditscore,jdbcType=DOUBLE},
+      </if>
+      <if test="qualityissuescore != null" >
+        #{qualityissuescore,jdbcType=DOUBLE},
+      </if>
+      <if test="qualityperformancescore != null" >
+        #{qualityperformancescore,jdbcType=DOUBLE},
+      </if>
+      <if test="cipscore != null" >
+        #{cipscore,jdbcType=DOUBLE},
+      </if>
+      <if test="othersscore != null" >
+        #{othersscore,jdbcType=DOUBLE},
+      </if>
+      <if test="totalscore != null" >
+        #{totalscore,jdbcType=DOUBLE},
+      </if>
+      <if test="spepercentage != null" >
+        #{spepercentage,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="isapprove != null" >
+        #{isapprove,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.EcatscoreExample" resultType="java.lang.Integer" >
+    select count(*) from ecatscore
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ecatscore
+    <set >
+      <if test="record.scoreid != null" >
+        ScoreID = #{record.scoreid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierid != null" >
+        SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.scoredate != null" >
+        ScoreDate = #{record.scoredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qrc != null" >
+        QRC = #{record.qrc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ec != null" >
+        EC = #{record.ec,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stopship != null" >
+        Stopship = #{record.stopship,jdbcType=DOUBLE},
+      </if>
+      <if test="record.prestopship != null" >
+        PreStopship = #{record.prestopship,jdbcType=DOUBLE},
+      </if>
+      <if test="record.gaqs != null" >
+        GAQS = #{record.gaqs,jdbcType=DOUBLE},
+      </if>
+      <if test="record.npiqs != null" >
+        NPIQS = #{record.npiqs,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ffc != null" >
+        FFC = #{record.ffc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fqp != null" >
+        FQP = #{record.fqp,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ci != null" >
+        CI = #{record.ci,jdbcType=DOUBLE},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=DOUBLE},
+      </if>
+      <if test="record.auditscore != null" >
+        AuditScore = #{record.auditscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qualityissuescore != null" >
+        QualityIssueScore = #{record.qualityissuescore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.qualityperformancescore != null" >
+        QualityPerformanceScore = #{record.qualityperformancescore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cipscore != null" >
+        CIPScore = #{record.cipscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.othersscore != null" >
+        OthersScore = #{record.othersscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalscore != null" >
+        TotalScore = #{record.totalscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.spepercentage != null" >
+        SPEPercentage = #{record.spepercentage,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createtime != null" >
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sn != null" >
+        SN = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateuser != null" >
+        UpdateUser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isapprove != null" >
+        IsApprove = #{record.isapprove,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdelete != null" >
+        IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ecatscore
+    set ScoreID = #{record.scoreid,jdbcType=INTEGER},
+      SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      ScoreDate = #{record.scoredate,jdbcType=TIMESTAMP},
+      QRC = #{record.qrc,jdbcType=DOUBLE},
+      EC = #{record.ec,jdbcType=DOUBLE},
+      Stopship = #{record.stopship,jdbcType=DOUBLE},
+      PreStopship = #{record.prestopship,jdbcType=DOUBLE},
+      GAQS = #{record.gaqs,jdbcType=DOUBLE},
+      NPIQS = #{record.npiqs,jdbcType=DOUBLE},
+      FFC = #{record.ffc,jdbcType=DOUBLE},
+      FQP = #{record.fqp,jdbcType=DOUBLE},
+      CI = #{record.ci,jdbcType=DOUBLE},
+      other = #{record.other,jdbcType=DOUBLE},
+      AuditScore = #{record.auditscore,jdbcType=DOUBLE},
+      QualityIssueScore = #{record.qualityissuescore,jdbcType=DOUBLE},
+      QualityPerformanceScore = #{record.qualityperformancescore,jdbcType=DOUBLE},
+      CIPScore = #{record.cipscore,jdbcType=DOUBLE},
+      OthersScore = #{record.othersscore,jdbcType=DOUBLE},
+      TotalScore = #{record.totalscore,jdbcType=DOUBLE},
+      SPEPercentage = #{record.spepercentage,jdbcType=DOUBLE},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      SN = #{record.sn,jdbcType=VARCHAR},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      UpdateUser = #{record.updateuser,jdbcType=VARCHAR},
+      IsApprove = #{record.isapprove,jdbcType=INTEGER},
+      IsDelete = #{record.isdelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Ecatscore" >
+    update ecatscore
+    <set >
+      <if test="supplierid != null" >
+        SupplierID = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="scoredate != null" >
+        ScoreDate = #{scoredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrc != null" >
+        QRC = #{qrc,jdbcType=DOUBLE},
+      </if>
+      <if test="ec != null" >
+        EC = #{ec,jdbcType=DOUBLE},
+      </if>
+      <if test="stopship != null" >
+        Stopship = #{stopship,jdbcType=DOUBLE},
+      </if>
+      <if test="prestopship != null" >
+        PreStopship = #{prestopship,jdbcType=DOUBLE},
+      </if>
+      <if test="gaqs != null" >
+        GAQS = #{gaqs,jdbcType=DOUBLE},
+      </if>
+      <if test="npiqs != null" >
+        NPIQS = #{npiqs,jdbcType=DOUBLE},
+      </if>
+      <if test="ffc != null" >
+        FFC = #{ffc,jdbcType=DOUBLE},
+      </if>
+      <if test="fqp != null" >
+        FQP = #{fqp,jdbcType=DOUBLE},
+      </if>
+      <if test="ci != null" >
+        CI = #{ci,jdbcType=DOUBLE},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=DOUBLE},
+      </if>
+      <if test="auditscore != null" >
+        AuditScore = #{auditscore,jdbcType=DOUBLE},
+      </if>
+      <if test="qualityissuescore != null" >
+        QualityIssueScore = #{qualityissuescore,jdbcType=DOUBLE},
+      </if>
+      <if test="qualityperformancescore != null" >
+        QualityPerformanceScore = #{qualityperformancescore,jdbcType=DOUBLE},
+      </if>
+      <if test="cipscore != null" >
+        CIPScore = #{cipscore,jdbcType=DOUBLE},
+      </if>
+      <if test="othersscore != null" >
+        OthersScore = #{othersscore,jdbcType=DOUBLE},
+      </if>
+      <if test="totalscore != null" >
+        TotalScore = #{totalscore,jdbcType=DOUBLE},
+      </if>
+      <if test="spepercentage != null" >
+        SPEPercentage = #{spepercentage,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="isapprove != null" >
+        IsApprove = #{isapprove,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ScoreID = #{scoreid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Ecatscore" >
+    update ecatscore
+    set SupplierID = #{supplierid,jdbcType=INTEGER},
+      ScoreDate = #{scoredate,jdbcType=TIMESTAMP},
+      QRC = #{qrc,jdbcType=DOUBLE},
+      EC = #{ec,jdbcType=DOUBLE},
+      Stopship = #{stopship,jdbcType=DOUBLE},
+      PreStopship = #{prestopship,jdbcType=DOUBLE},
+      GAQS = #{gaqs,jdbcType=DOUBLE},
+      NPIQS = #{npiqs,jdbcType=DOUBLE},
+      FFC = #{ffc,jdbcType=DOUBLE},
+      FQP = #{fqp,jdbcType=DOUBLE},
+      CI = #{ci,jdbcType=DOUBLE},
+      other = #{other,jdbcType=DOUBLE},
+      AuditScore = #{auditscore,jdbcType=DOUBLE},
+      QualityIssueScore = #{qualityissuescore,jdbcType=DOUBLE},
+      QualityPerformanceScore = #{qualityperformancescore,jdbcType=DOUBLE},
+      CIPScore = #{cipscore,jdbcType=DOUBLE},
+      OthersScore = #{othersscore,jdbcType=DOUBLE},
+      TotalScore = #{totalscore,jdbcType=DOUBLE},
+      SPEPercentage = #{spepercentage,jdbcType=DOUBLE},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      SN = #{sn,jdbcType=VARCHAR},
+      UserName = #{username,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      IsApprove = #{isapprove,jdbcType=INTEGER},
+      IsDelete = #{isdelete,jdbcType=INTEGER}
+    where ScoreID = #{scoreid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Comment" >
+    <id column="CommentID" property="commentid" jdbcType="INTEGER" />
+    <result column="SupplierID" property="supplierid" jdbcType="INTEGER" />
+    <result column="CommentDate" property="commentdate" jdbcType="TIMESTAMP" />
+    <result column="EventMetric" property="eventmetric" jdbcType="INTEGER" />
+    <result column="EventType" property="eventtype" jdbcType="INTEGER" />
+    <result column="EventImpact" property="eventimpact" jdbcType="INTEGER" />
+    <result column="EventDescription" property="eventdescription" jdbcType="VARCHAR" />
+    <result column="CommodityID" property="commodityid" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="UpdateUser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CommentID, SupplierID, CommentDate, EventMetric, EventType, EventImpact, EventDescription, 
+    CommodityID, CreateTime, SN, UserName, UpdateTime, UpdateUser, IsDelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where CommentID = #{commentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where CommentID = #{commentid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.CommentExample" >
+    delete from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Comment" >
+    insert into comment (CommentID, SupplierID, CommentDate, 
+      EventMetric, EventType, EventImpact, 
+      EventDescription, CommodityID, CreateTime, 
+      SN, UserName, UpdateTime, 
+      UpdateUser, IsDelete)
+    values (#{commentid,jdbcType=INTEGER}, #{supplierid,jdbcType=INTEGER}, #{commentdate,jdbcType=TIMESTAMP}, 
+      #{eventmetric,jdbcType=INTEGER}, #{eventtype,jdbcType=INTEGER}, #{eventimpact,jdbcType=INTEGER}, 
+      #{eventdescription,jdbcType=VARCHAR}, #{commodityid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{sn,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{isdelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        CommentID,
+      </if>
+      <if test="supplierid != null" >
+        SupplierID,
+      </if>
+      <if test="commentdate != null" >
+        CommentDate,
+      </if>
+      <if test="eventmetric != null" >
+        EventMetric,
+      </if>
+      <if test="eventtype != null" >
+        EventType,
+      </if>
+      <if test="eventimpact != null" >
+        EventImpact,
+      </if>
+      <if test="eventdescription != null" >
+        EventDescription,
+      </if>
+      <if test="commodityid != null" >
+        CommodityID,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="commentdate != null" >
+        #{commentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventmetric != null" >
+        #{eventmetric,jdbcType=INTEGER},
+      </if>
+      <if test="eventtype != null" >
+        #{eventtype,jdbcType=INTEGER},
+      </if>
+      <if test="eventimpact != null" >
+        #{eventimpact,jdbcType=INTEGER},
+      </if>
+      <if test="eventdescription != null" >
+        #{eventdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityid != null" >
+        #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment
+    <set >
+      <if test="record.commentid != null" >
+        CommentID = #{record.commentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierid != null" >
+        SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentdate != null" >
+        CommentDate = #{record.commentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eventmetric != null" >
+        EventMetric = #{record.eventmetric,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventtype != null" >
+        EventType = #{record.eventtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventimpact != null" >
+        EventImpact = #{record.eventimpact,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventdescription != null" >
+        EventDescription = #{record.eventdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityid != null" >
+        CommodityID = #{record.commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sn != null" >
+        SN = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateuser != null" >
+        UpdateUser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdelete != null" >
+        IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment
+    set CommentID = #{record.commentid,jdbcType=INTEGER},
+      SupplierID = #{record.supplierid,jdbcType=INTEGER},
+      CommentDate = #{record.commentdate,jdbcType=TIMESTAMP},
+      EventMetric = #{record.eventmetric,jdbcType=INTEGER},
+      EventType = #{record.eventtype,jdbcType=INTEGER},
+      EventImpact = #{record.eventimpact,jdbcType=INTEGER},
+      EventDescription = #{record.eventdescription,jdbcType=VARCHAR},
+      CommodityID = #{record.commodityid,jdbcType=INTEGER},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      SN = #{record.sn,jdbcType=VARCHAR},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      UpdateUser = #{record.updateuser,jdbcType=VARCHAR},
+      IsDelete = #{record.isdelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Comment" >
+    update comment
+    <set >
+      <if test="supplierid != null" >
+        SupplierID = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="commentdate != null" >
+        CommentDate = #{commentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventmetric != null" >
+        EventMetric = #{eventmetric,jdbcType=INTEGER},
+      </if>
+      <if test="eventtype != null" >
+        EventType = #{eventtype,jdbcType=INTEGER},
+      </if>
+      <if test="eventimpact != null" >
+        EventImpact = #{eventimpact,jdbcType=INTEGER},
+      </if>
+      <if test="eventdescription != null" >
+        EventDescription = #{eventdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityid != null" >
+        CommodityID = #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CommentID = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Comment" >
+    update comment
+    set SupplierID = #{supplierid,jdbcType=INTEGER},
+      CommentDate = #{commentdate,jdbcType=TIMESTAMP},
+      EventMetric = #{eventmetric,jdbcType=INTEGER},
+      EventType = #{eventtype,jdbcType=INTEGER},
+      EventImpact = #{eventimpact,jdbcType=INTEGER},
+      EventDescription = #{eventdescription,jdbcType=VARCHAR},
+      CommodityID = #{commodityid,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      SN = #{sn,jdbcType=VARCHAR},
+      UserName = #{username,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      UpdateUser = #{updateuser,jdbcType=VARCHAR},
+      IsDelete = #{isdelete,jdbcType=INTEGER}
+    where CommentID = #{commentid,jdbcType=INTEGER}
+  </update>
+</mapper>
